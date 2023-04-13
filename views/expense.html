@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense features Welcome to my page</title>
+    <link rel="stylesheet" href="./public/expense.css">
+
+
+</head>
+<body>
+    <header>
+        <h1>Expense tracker App</h1>
+    </header>
+    <main>
+        <form action="#">
+            <label for="amount">Choose Expense Amount:</label>
+            <input type="number" id="amount" class="amount" name="amount">
+            <label for="description">Choose description:</label>
+            <input type="text" name="description" id="description">
+            <label for="category">Choose category:</label>
+            <select name="cate" id="category">
+                <option value="fuel">fuel</option>
+                <option value="food">food</option>
+                <option value="party">party</option>
+                <option value="bills">bills</option>
+            </select>
+            <button id="expense">Add Expense</button>
+            <div class="right-button">
+                <button id="razorpay"> Buy Premium Membership</button>
+                <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+            </div>
+        </form>
+        
+        <h2 class="allexpensetext">All Expenses</h2> 
+        <div id="addText"></div>
+        <div class="loader"></div>
+        
+        
+        <div class="reportText h2 text-white" id="reportText"></div>
+        <div id="buttons"></div> <br><br>
+        
+        <ul id="allreport"></ul>
+        
+        <hr>  
+        <select name="pagesize" id="pagesize">
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+            <option value="25">25</option>
+        </select>
+        <table class="table text-white">
+            <thead>
+                <tr>
+                    <td>No.</td>
+                    <td>Amount</td>
+                    <td>Description</td>
+                    <td>Category</td>
+                    <td>Delete</td>
+                </tr>
+            </thead>
+        </table>
+        <ol id="allExpenses"></ol> 
+        <ul id="pagination"></ul>
+        <ul id="leaderboard"></ul>
+
+
+
+        
+
+        
+        
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="expense.js"></script>
+</body>
+</html>
