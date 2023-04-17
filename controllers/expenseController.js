@@ -94,7 +94,7 @@ exports.UploadReport = async (req,res) => {
 
         
     } catch (error) {
-        console.log("error in download file",err)
+        console.log("error in download file",error)
         res.json({Error:err})
     }
 

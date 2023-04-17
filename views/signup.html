@@ -7,12 +7,16 @@
 
 </head>
 <body>
-    <header>
-        <h1>Sign Up</h1>
-    </header>
+    <div class="ripple-background">
+        <div class="circle xxlarge shade1"></div>
+        <div class="circle xlarge shade2"></div>
+        <div class="circle large shade3"></div>
+        <div class="circle medium shade4"></div>
+        <div class="circle small shade5"></div>
+    </div>
     <main>
         <div id="error"></div>
-        <form >
+        <!-- <form >
             <label for="name">Name</label>
             <input type="text" id="name" class="name"  >
             <label for="email">Email</label>
@@ -21,7 +25,22 @@
             <input type="password" id="password" class="password" >
             <button id="signup">signup</button>
         </form>
-        <p>Already have an account? <a href="./login.html">Sign In</a></p>
+        <p>Already have an account? <a href="./login.html">Sign In</a></p> -->
+        <div class="form-box">
+            <form class="form">
+                <span class="title">Sign up</span>
+                <span class="subtitle">Create a free account with your email.</span>
+                <div class="form-container">
+                  <input type="text" class="input" id="name" placeholder="Full Name">
+                        <input type="email" class="input" id="email" placeholder="Email">
+                        <input type="password" class="input" id="password" placeholder="Password">
+                </div>
+                <button id="signup">Sign up</button>
+            </form>
+            <div class="form-section">
+              <p>Have an account? <a href="./login.html">Log in</a> </p>
+            </div>
+            </div>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="signup.js"></script>

@@ -2,6 +2,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    font-family:serif;
 }
 
 /* Global styles */
@@ -9,15 +10,19 @@ body {
     font-family: Arial, sans-serif;
     font-size: 16px;
     line-height: 1.5;
-    background-color: #f5f5f5;
+/*     background-color:yellow; */
     color: #333;
+    
 }
 
 header {
-    background-color: #333;
+    background-color: #1e88e5;
     color: #fff;
-    padding: 20px;
+    padding: 5px;
     text-align: center;
+    font-family:serif;
+    letter-spacing:2px;
+/*     line-height:1.6; */
 }
 
 h1 {
@@ -31,11 +36,22 @@ main {
 
 form {
     margin-bottom: 20px;
+    background:#1e88e5;
+    width:350px;
+    display:block;
+    margin:auto;
+    color:#ffffff;
+    padding:40px 20px 0px 20px;
+    font-family:serif;
+    border-radius:8px;
+/*     box-shadow:0 0 15px black; */
+    margin-top:30px;
 }
 
 label {
     display: block;
     margin-bottom: 5px;
+    font-size:18px
 }
 
 input[type="number"],
@@ -50,21 +66,34 @@ select {
     background-color: #fff;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
+input:focus{
+    border:0px;
+    box-shadow:0 0 8px black;
+    outline:none;
+}
+select:focus{
+    border:none;
+    outline:none;
+    box-shadow:0 0 8px black;
+}
 
 button {
-    display: inline-block;
-    padding: 10px 20px;
+    display: block;
+    margin:auto;
+    
+    padding: 10px 30px;
     border: none;
-    border-radius: 5px;
-    background-color: #333;
-    color: #fff;
+    border-radius: 25px;
+/*     background-color: #333; */
+    background:white;
+    color: black;
     font-size: 1em;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 2s ease;
 }
 
 button:hover {
-    background-color: #666;
+    background-color: pink;
 }
 
 .right-button {
@@ -100,22 +129,34 @@ button:hover {
 table {
     border-collapse: collapse;
     width: 100%;
+    text-align:center;
+    border:1px solid black;
 }
 
-th,
+
 td {
-    padding: 12px 15px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
+    padding: 12px 20px;
+    text-align:center;
+/*     border-bottom: 1px solid #ddd; */
+    border-bottom:1px solid pink;
+    background:#333;
+   color:lightpink;
+    font-size:18px;
+    letter-spacing:1px;
+    
 }
 
 th {
-    background-color: #333;
+    padding:15px 0;
+    background-color: #1e88e5;
     color: #fff;
+    font-size:20px;
+    letter-spacing:1px;
+    
 }
 
 tr:hover {
-    background-color: #f5f5f5;
+    background-color: white;
 }
 
 .pagination {
