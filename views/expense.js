@@ -96,7 +96,7 @@ function showOnScreen(show){
            <td>${show.amount}</td>
            <td>${show.description}</td>
            <td>${show.category}</td>
-           <td><button onclick="deleteExpense(${show.id})" style="float:right" class="btn btn-danger" >delete</button></td>
+           <td><button  onclick="deleteExpense(${show.id})" style="float:right" class="btn btn-danger" >delete</button></td>
            </tr>
            </table>`
         allExpenses.innerHTML=allExpenses.innerHTML+newExpense

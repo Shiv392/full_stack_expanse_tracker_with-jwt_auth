@@ -14,7 +14,6 @@ body {
     color: #333;
     
 }
-
 header {
     background-color: #1e88e5;
     color: #fff;
@@ -23,6 +22,25 @@ header {
     font-family:serif;
     letter-spacing:2px;
 /*     line-height:1.6; */
+display: flex;
+justify-content: space-between;
+align-items:center;
+    flex-wrap:rowrap;
+}
+header h1{
+    width:70%;
+/*     color:red; */
+    text-shadow:0 0 10px black;
+    font-size:40px;
+}
+header button{
+    box-shadow:0 0 15px black;
+    border:none;
+    outline:none;
+}
+header a{
+    text-decoration:none;
+    
 }
 
 h1 {
