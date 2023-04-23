@@ -2,7 +2,13 @@ const email=document.getElementById("email")
 const password=document.getElementById("password")
 const login=document.getElementById("login")
 const loginError=document.getElementById("loginError")
-const loginSuccess=document.getElementById("loginSuccess")
+const loginSuccess=document.getElementById("loginSuccess");
+const passwordEye= document.getElementById('password-eye');
+ 
+passwordEye.addEventListener('click',()=>{
+    password.type="text";
+    
+})
 
 login.addEventListener("click",loginPage)
 

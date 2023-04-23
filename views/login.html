@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="./public/login.css">
     <title>Login</title>
 
@@ -31,9 +32,9 @@
         <form class="form">
             <div class="header">Sign In</div>
             <div class="inputs">
-                <input placeholder="Email" id="email" class="input" type="text">
-                <input placeholder="Password" id="password" class="input" type="password">
-
+                <input placeholder="Email" id="email" class="input" type="text" required>
+                <input placeholder="Password" id="password" class="input" type="password" style="position: relative;" required>
+                <i class="fa-solid fa-eye" id="password-eye"></i>
                 <button class="sigin-btn" id="login">Submit</button>
                 <a class="forget" href="./forgot.html">Forget password ?</a>
                 <p class="signup-link">Don't have an account? <a href="./signup.html">Sign up</a></p>

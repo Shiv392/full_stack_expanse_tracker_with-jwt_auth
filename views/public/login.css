@@ -58,7 +58,12 @@ body{
     display: flex;
     flex-direction: column;
   }
-  
+  .inputs i{
+    position: absolute;
+    margin-top: 72px;
+    margin-left: 272px;
+    opacity: 0.9;
+  }
   .input-container {
     display: flex;
     flex-direction: column;

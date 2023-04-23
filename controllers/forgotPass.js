@@ -1,60 +1,99 @@
-const uuid=require("uuid")
-const sgMail = require('@sendgrid/mail')
-const encrypt=require("bcrypt")
+const uuid = require("uuid")
+const sgMail = require('@sendgrid/mail');
+const Sib = require('sib-api-v3-sdk');
+const encrypt = require("bcrypt")
 require("dotenv").config()
 
 
 const user = require('../models/userModel')
 const forgotpassword = require('../models/forgotModle')
 
-exports.forgotpassword=async(req,res)=>{
-    try{
-        const { email } =  req.body;
-        
-        const userFound=await user.findOne({where:{email:email}})
-        if(userFound){
+exports.forgotpassword = async (req, res) => {
+    try {
+        const { email } = req.body;
+
+        const userFound = await user.findOne({ where: { email: email } })
+        if (userFound) {
             // console.log(userFound.__proto__)
-                const id=uuid.v4()
-                userFound.createForgotPassword({
-                        id,
-                        isactive:true
-                })
-                sgMail.setApiKey(process.env.SENGRID_API_KEY)
-            
-                const msg = {
-                    to: email, // Change to your recipient
-                    from: 'spider.akm@gmail.com', // Change to your verified sender
-                    subject: 'Reset Password link',
-                    text: 'click the reset password button to reset the password',
-                    html: `<a href="http://localhost:4000/password/resetpassword/${id}">Reset password</a>`,
-                }
-                sgMail
-                .send(msg)
-                .then((response) => {
-    
-                    console.log(response[0].statusCode)
+            const id = uuid.v4()
+            userFound.createForgotPassword({
+                id,
+                isactive: true
+            })
+            // sgMail.setApiKey(process.env.SENGRID_API_KEY)
+            const client = Sib.ApiClient.instance;
+            const apiKey = client.authentications["api-key"];
+            apiKey.apiKey = process.env.SENGRID_API_KEY;
+            const tranEmailApi = new Sib.TransactionalEmailsApi(); //email api insttance
+            const sender = {
+                email: "shivnh5@gmail.com",
+                name: "ShivSoni",
+            };
 
-                    return res.status(response[0].statusCode).json({message: 'Link to reset password sent to your mail ', sucess: true})
+            const receivers = [
+                {
+                    email: email,
+                },
+            ];
+            tranEmailApi
+            .sendTransacEmail({
+              sender,
+              to: receivers,
+              subject: "Change Your Password",
+              textContent: "I will teach you how to reset a password",
+        htmlContent: `<a href="http://localhost:4000/password/resetpassword/${id}">Reset password</a>`,
+            })
+            .then((response) => {
+              // console.log(response[0].statusCode)
+              // console.log(response[0].headers)
+              return res.status(204).json({
+                message: "Link to reset password sent to your mail ",
+                sucess: true,
+              });
+            })
+            .catch((err) => {
+              throw new Error(err);
+            });
     
-                })
-                .catch((error) => {
-                    throw new Error(error);
-                })
+          // send mail
+        } else {
+          throw new Error("User doesnt exist");
         }
- 
-            
 
-    }catch(err){
-        console.log("error in forgot password-->",err)
-        res.json({Error:err})
+            // const msg = {
+            //     to: email, // Change to your recipient
+            //     from: 'spider.akm@gmail.com', // Change to your verified sender
+            //     subject: 'Reset Password link',
+            //     text: 'click the reset password button to reset the password',
+            //     html: `<a href="http://localhost:4000/password/resetpassword/${id}">Reset password</a>`,
+            // }
+            // sgMail
+            //     .send(msg)
+            //     .then((response) => {
+
+            //         console.log(response[0].statusCode)
+
+            //         return res.status(response[0].statusCode).json({ message: 'Link to reset password sent to your mail ', sucess: true })
+
+            //     })
+            //     .catch((error) => {
+            //         throw new Error(error);
+            //     })
+        }
+
+
+
+    catch (err) {
+        console.log("error in forgot password-->", err)
+        res.json({ Error: err })
     }
 
 }
-exports.resetpasswor = async (req,res) => {
+exports.resetpasswor = async (req, res) => {
     const id = req.params.id;
-    forgotpassword.findOne({ where : { id }}).then(forgotpasswordrequest => {
-        if(forgotpasswordrequest){
-            forgotpasswordrequest.update({ active: false});
+    forgotpassword.findOne({ where: { id } }).then(forgotpasswordrequest => {
+        if (forgotpasswordrequest) {
+            forgotpasswordrequest.update({ active: false });
             res.send(`<html>
             <script>
                 function formsubmitted(e){
@@ -86,9 +125,7 @@ exports.resetpasswor = async (req,res) => {
            header{
                background-color: rgb(20, 117, 156);
                color: white;
-               padding-top:86px ;
-               margin-bottom:15px;
-               height: 300px
+               padding:10px;
            }
            label{
                font-family: inherit;
@@ -99,14 +136,16 @@ exports.resetpasswor = async (req,res) => {
                <header>
                    <h1>Enter your New Password<h1>
                </header>
+            <div class="container" style="margin-top:30px">
             <form action="/password/updatepassword/${id}" method="get">
-                <label for="newpassword">Enter New password</label>
-                <input name="newpassword" type="password" required></input><br><br>
-                <button>reset password</button>
-            </form>
+            <label for="newpassword">Enter New password</label>
+            <input name="newpassword" type="password" required></input><br><br>
+            <button>reset password</button>
+        </form>
+            </div>
             </body>
         </html>`
-        )
+            )
             res.end()
         }
     })
@@ -114,27 +153,27 @@ exports.resetpasswor = async (req,res) => {
 
 
 
-exports.updatepassword=async (req,res)=>{
-    try{
+exports.updatepassword = async (req, res) => {
+    try {
         const { newpassword } = req.query;
-        const { resetpassword  }=req.params
+        const { resetpassword } = req.params
 
 
-        const findUser=  await forgotpassword.findOne({where:{id:resetpassword}})
-        const data=await user.findOne({where:{id:findUser.UserId}})
+        const findUser = await forgotpassword.findOne({ where: { id: resetpassword } })
+        const data = await user.findOne({ where: { id: findUser.UserId } })
 
-       if(data){
-        encrypt.hash(newpassword,10,async(err,hash)=>{
-            if(err){
-                res.json({Error:err})
-            }     
-            const data2=await data.update({password:hash}) 
-             res.send("successfully updated")
-        })
+        if (data) {
+            encrypt.hash(newpassword, 10, async (err, hash) => {
+                if (err) {
+                    res.json({ Error: err })
+                }
+                const data2 = await data.update({ password: hash })
+                res.send("successfully updated")
+            })
+        }
+    } catch (err) {
+        console.log("update passwor error-->", err)
+        res.json({ Error: err })
     }
-    }catch(err){
-        console.log("update passwor error-->",err)
-        res.json({Error:err})
-    }
-   
+
 }
